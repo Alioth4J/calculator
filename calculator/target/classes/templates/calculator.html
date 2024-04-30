@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #calculator {
+            max-width: 400px;
+            width: 80%;
+            padding: 30px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 0;
+            color: #333;
+        }
+
+        h3 {
+            text-align: center;
+            margin-top: 10px;
+            color: #666;
+        }
+
+        input, button {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .row button {
+            flex: 1;
+            margin: 0 5px;
+        }
+
+        #result {
+            font-weight: bold;
+            color: #4caf50;
+        }
+    </style>
+</head>
+<body>
+<div id="calculator">
+    <h1>Calculator</h1>
+    <h3>by Alioth4J</h3>
+    <input type="text" id="expression" readonly />
+    <div class="row">
+        <button onclick="append('1')">1</button>
+        <button onclick="append('2')">2</button>
+        <button onclick="append('3')">3</button>
+        <button onclick="append('+')">+</button>
+    </div>
+    <div class="row">
+        <button onclick="append('4')">4</button>
+        <button onclick="append('5')">5</button>
+        <button onclick="append('6')">6</button>
+        <button onclick="append('-')">-</button>
+    </div>
+    <div class="row">
+        <button onclick="append('7')">7</button>
+        <button onclick="append('8')">8</button>
+        <button onclick="append('9')">9</button>
+        <button onclick="append('*')">*</button>
+    </div>
+    <div class="row">
+        <button onclick="append('0')">0</button>
+        <button onclick="append('(')">(</button>
+        <button onclick="append(')')">)</button>
+        <button onclick="append('/')">/</button>
+    </div>
+    <div class="row">
+        <button onclick="append('&&')">&&</button>
+        <button onclick="append('||')">||</button>
+        <button onclick="append('!')">!</button>
+        <button onclick="deleteLastCharacter()"><-</button>
+    </div>
+    <div class="row">
+        <button onclick="clearExpression()">C</button>
+        <button onclick="calculate()">=</button>
+    </div>
+    <h2>Result: <span id="result"></span></h2>
+</div>
+
+<script>
+    function append(value) {
+        document.getElementById("expression").value += value;
+    }
+
+    function deleteLastCharacter() {
+        var expression = document.getElementById("expression").value;
+        document.getElementById("expression").value = expression.slice(0, -1);
+    }
+
+    function calculate() {
+        var expression = document.getElementById("expression").value;
+        fetch('/calculator/calculate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: 'expression=' + encodeURIComponent(expression)
+        })
+            .then(response => response.text())
+            .then(text => document.getElementById("result").innerText = text)
+            .catch(error => document.getElementById("result").innerText = 'Error');
+    }
+
+    function clearExpression() {
+        document.getElementById("expression").value = '';
+        document.getElementById("result").innerText = '';
+    }
+</script>
+</body>
+</html>
