@@ -8,9 +8,9 @@
 		<version>3.2.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.alioth</groupId>
+	<groupId>com.alioth4j</groupId>
 	<artifactId>calculator</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<name>calculator</name>
 	<description>calculator</description>
 	<properties>

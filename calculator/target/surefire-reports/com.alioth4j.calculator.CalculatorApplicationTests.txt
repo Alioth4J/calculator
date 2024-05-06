@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.alioth4j.calculator.CalculatorApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.808 s -- in com.alioth4j.calculator.CalculatorApplicationTests

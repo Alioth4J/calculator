@@ -1,4 +1,4 @@
-com\alioth\calculator\service\CalculatorService.class
-com\alioth\calculator\service\impl\CalculatorServiceImpl.class
-com\alioth\calculator\controller\CalculatorController.class
-com\alioth\calculator\CalculatorApplication.class
+com\alioth4j\calculator\CalculatorApplication.class
+com\alioth4j\calculator\controller\CalculatorController.class
+com\alioth4j\calculator\service\CalculatorService.class
+com\alioth4j\calculator\service\impl\CalculatorServiceImpl.class
