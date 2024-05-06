@@ -12,19 +12,21 @@ import java.util.*;
 @Service
 public class CalculatorServiceImpl implements CalculatorService {
 
+    private static final double EPSILON = 0.000001;
+
     @Override
     public String calculate(String expression) {
         List<String> postfixExpression = convertExpression(expression);
-        Deque<Integer> stack = new ArrayDeque<>();
+        Deque<Double> stack = new ArrayDeque<>();
         for (String token : postfixExpression) {
             if (Character.isDigit(token.charAt(0))) {
-                stack.push(Integer.parseInt(token));
+                stack.push(Double.parseDouble(token));
             } else {
-                int num2 = stack.pop();
+                double num2 = stack.pop();
                 if ("!".equals(token)) {
-                    stack.push(num2 == 0 ? 1 : 0);
+                    stack.push(Math.abs(num2) < EPSILON ? 1.0 : 0.0);
                 } else {
-                    int num1 = stack.pop();
+                    double num1 = stack.pop();
                     switch (token) {
                         case "+":
                             stack.push(num1 + num2);
@@ -39,10 +41,10 @@ public class CalculatorServiceImpl implements CalculatorService {
                             stack.push(num1 / num2);
                             break;
                         case "&&":
-                            stack.push((num1 != 0 && num2 != 0) ? 1 : 0);
+                            stack.push((Math.abs(num1) < EPSILON && Math.abs(num2) < EPSILON) ? 1.0 : 0.0);
                             break;
                         case "||":
-                            stack.push((num1 != 0 || num2 != 0) ? 1 : 0);
+                            stack.push((Math.abs(num1) > EPSILON || Math.abs(num2) > EPSILON) ? 1.0 : 0.0);
                             break;
                     }
                 }
@@ -56,9 +58,9 @@ public class CalculatorServiceImpl implements CalculatorService {
         Deque<String> stack = new ArrayDeque<>();
         for (int i = 0; i < expression.length(); i++) {
             char ch = expression.charAt(i);
-            if (Character.isDigit(ch)) {
+            if (Character.isDigit(ch) || ch == '.') {
                 StringBuilder num = new StringBuilder();
-                while (i < expression.length() && Character.isDigit(expression.charAt(i))) {
+                while (i < expression.length() && (Character.isDigit(expression.charAt(i)) || expression.charAt(i) == '.')) {
                     num.append(expression.charAt(i));
                     i++;
                 }
