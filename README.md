@@ -1,5 +1,5 @@
 # calculator
-a simple calculator  
+a simple Java calculator  
 功能包括加减乘除、括号、与或非运算
 
 ## 在线体验地址
