@@ -41,7 +41,7 @@ public class CalculatorServiceImpl implements CalculatorService {
                             stack.push(num1 / num2);
                             break;
                         case "&&":
-                            stack.push((Math.abs(num1) < EPSILON && Math.abs(num2) < EPSILON) ? 1.0 : 0.0);
+                            stack.push((Math.abs(num1) > EPSILON && Math.abs(num2) > EPSILON) ? 1.0 : 0.0);
                             break;
                         case "||":
                             stack.push((Math.abs(num1) > EPSILON || Math.abs(num2) > EPSILON) ? 1.0 : 0.0);
